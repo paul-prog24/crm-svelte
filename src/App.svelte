@@ -1,30 +1,26 @@
 <script>
-	export let name;
-</script>
-
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
-
-<style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
+	import Dashboard from "./pages/Dashboard.svelte";
+	import Contacts from "./pages/Contacts.svelte";
+	import Tasks from "./pages/Tasks.svelte";
+  
+	let currentPage = "dashboard";
+  
+	function navigate(page) {
+	  currentPage = page;
 	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
-</style>
+  </script>
+  
+  <nav>
+	<button on:click={() => navigate("dashboard")}>Dashboard</button>
+	<button on:click={() => navigate("contacts")}>Contacts</button>
+	<button on:click={() => navigate("tasks")}>Tasks</button>
+  </nav>
+  
+  {#if currentPage === "dashboard"}
+	<Dashboard />
+  {:else if currentPage === "contacts"}
+	<Contacts />
+  {:else if currentPage === "tasks"}
+	<Tasks />
+  {/if}
+  
